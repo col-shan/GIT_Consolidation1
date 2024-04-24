@@ -1,8 +1,8 @@
 #creating a card game based on memorization
 #each card in my deck will contain the typical suits and ranks values
 #the dealer will flip 4 cards at a time, with each one displayed for only 2 seconds
+#the player will score or lose points by remembering specific aspects (ranks or suits) of cards that they were shown
 #there will be 5 rounds
-#the player will score points by remembering specific aspects of cards that they were shown
 
 #import file paths
 import os
@@ -25,8 +25,11 @@ def deal_card(my_deck, hand):
     #use append to assign card to the players hand
     hand.append(card)
 
-#create my player's empty hand
+#create the player's empty hand
 player_hand = []
+#create the player's score
+score = 0
+print("Your starting score is: 0, lets see how high you can get in 5 turns!")
 
 #deal 4 cards to the player's hand
 for _ in range(4):
@@ -43,10 +46,36 @@ for _ in range(4):
 
 #dealer randomly selects suits or ranks for player to guess
 suits_or_ranks = random.choice(["Suits", "Ranks"])
-print("You need to guess the ", suits_or_ranks)
+print("You need to guess the", suits_or_ranks)
 
 #player must list out suits or ranks depending on the dealer's random choice
 if suits_or_ranks == "Suits":
     player_guess = input("List the suits (Hearts, Diamonds, Clubs, Ace) of the cards that were dealt: ")
 else:
     player_guess = input("List the ranks (2 through 10 or Jack/Queen/King/Ace) of the cards that were dealt: ")
+
+# Split player's input into a list of guesses
+player_guesses = player_guess.split(", ")
+
+# Check each card in the player's hand
+for card in player_hand:
+    # Check if the guess matches the appropriate attribute (suit or rank) of the card
+    if suits_or_ranks == "Suits":
+        # If the guessed suit matches the card's suit, award 1 point
+        if card[1] in player_guesses:
+            print(f"Correct guess: {card[1]}")
+            score += 1
+        else:
+            print(f"Incorrect guess: {card[1]}")
+            score -= 1
+    else:  # If the dealer chose "Ranks"
+        # If the guessed rank matches the card's rank, award 1 point
+        if card[0] in player_guesses:
+            print(f"Correct guess: {card[0]}")
+            score += 1
+        else:
+            print(f"Incorrect guess: {card[0]}")
+            score -= 1
+
+# Display player's final score
+print(f"Your final score is: {score}")
