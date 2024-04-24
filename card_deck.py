@@ -1,15 +1,10 @@
-#creating a card game based on memorization
-#there will be 5 rounds (best of 5)
-#the player will score points by remembering specific aspects of cards that they were shown
-#the cards will only show for 2 seconds at a time
+#Deck of Cards
 
-#import file paths
-import os
 #import so I can randomize the cards
 import random
 
-#must create function with 52 values for my deck
-#will use tuples, with cards as ints and suits as strings
+
+#will use tuples, with cards as ints and suits as strings to create the 52 values for my deck
 def create_deck():
     #create my 2 lists consisting of suits and ranks
     suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
@@ -23,21 +18,16 @@ def create_deck():
 deck = create_deck()
 print(deck)
 
-random.shuffle(deck)
-
-#must now simulate what a dealer does by moving one card from my deck to a players hand
-#create my arguments for both my deck of cards, and the hand of the player
+#create my arguments for both my deck of cards, and the hand of my player
 def deal_card(deck, hand):
     #used pop to permanently remove card from my deck (no repeating cards)
     card = deck.pop()
     #use append to assign card to the players hand
     hand.append(card)
 
-#create my player's empty hand
-player_hand = []
+def main():
+    deck = create_deck()
+    random.shuffle(deck)
 
-#deal a card to the player's hand
-deal_card(deck, player_hand)
 
-#print out what card the player got
-print("Player's Hand:", player_hand)
+#will now impport my this module containing my deck of cards into my primary code
