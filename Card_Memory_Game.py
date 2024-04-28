@@ -25,7 +25,10 @@ def deal_card(my_deck, hand):
 player_hand = []
 #create the player's score
 score = 0
-print("Your starting score is: 0, lets see how high you can get in 5 turns!")
+#talk to the player and let them know what's going on!!
+print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2 seconds each.")
+print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
+print("One point will be awarded for every correct answer you get, and there will be 5 rounds. Let's begin!")
 
 #deal 4 cards to the player's hand
 for _ in range(4):
@@ -42,6 +45,10 @@ for _ in range(4):
         #memorization aspect, cards must disappear(looked up how to clear terminal screen via StackOverflow)
         os.system('cls' if os.name == 'nt' else 'clear')
 
+#continue guiding player through the game
+print("Time to test your recall! The dealer will now pick either the suits or ranks of the cards that were dealt.")
+print("You must list out the corresponding values, using commas to separate your answers. It should look like this: '8, 10, king, 2'")
+    
 #dealer randomly selects suits or ranks for player to guess
 suits_or_ranks = random.choice(["Suits", "Ranks"])
 #test code below: tells the player which value they must try to recite
@@ -50,10 +57,10 @@ suits_or_ranks = random.choice(["Suits", "Ranks"])
 #player must list out suits or ranks depending on the dealer's random choice
 if suits_or_ranks == "Suits":
     #have user input their guesses for the suit
-    player_guess = input("List the suits (Hearts, Diamonds, Clubs, Spades) of the cards that were dealt: ")
+    player_guess = input("The dealer has picked suits (hearts, diamonds, clubs, spades)! Type them in order please: ")
 else:
     #maybe input is problem here? as some values are numeric and others are not
-    player_guess = input("List the ranks (2 through 10 or Jack/Queen/King/Ace) of the cards that were dealt: ")
+    player_guess = input("The dealer has picked ranks (2 through 10 or jack/queen/king/ace)! Type them in order please: ")
 
 #player's guesses are split into a list so that all 4 can be read
 player_guesses = player_guess.split(", ")
@@ -66,7 +73,6 @@ for i in range(len(player_hand)):
     #if not enough guesses were made, let the player know and score accordingly
     except IndexError:
         print("No guess provided for this card")
-        score -= 1
         continue
     #if dealer chose suits
     if suits_or_ranks == "Suits":
@@ -76,9 +82,9 @@ for i in range(len(player_hand)):
             score += 1
         else:
             print(f"Incorrect guess: {player_hand[i][1]}")
-            score -= 1
     #if dealer chose ranks
     else:  
+        #convert all numbers in my ranks (2-10) into strings so that program can properly score it (needed lots of online help here)
         card_rank = str(player_hand[i][0]) if isinstance(player_hand[i][0], int) else player_hand[i][0]
         #check if guess matches the rank of current card, and print and score accordingly with if/else for either scenario
         if guess == card_rank:
@@ -86,6 +92,5 @@ for i in range(len(player_hand)):
             score += 1
         else:
             print(f"Incorrect guess: {card_rank}")
-            score -= 1
 
 print(f"Your final score is: {score}")
