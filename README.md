@@ -14,9 +14,3 @@ t
 ## License
 
 I am using the MIT License to protect my intellectual property on this coding game. 
-
-
-print(my_deck)
-
-#make sure the player can guess in lowercase so that answers aren't that case-sensitive
-player_guess = player_guess.lower()

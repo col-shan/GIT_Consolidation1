@@ -1,5 +1,3 @@
-#Deck of Cards
-
 #must create function with 52 values for my deck
 #will use tuples, with cards as ints and suits as strings
 def create_deck():
