@@ -16,7 +16,7 @@ def deal_card(my_deck, hand):
     hand.append(card)
 
 #talk to the player and let them know what's going on!!
-print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2 seconds each.")
+print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2.5 seconds each.")
 print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
 print("One point will be awarded for every correct answer you get, and there will be 5 rounds. Let's begin!")
 
@@ -25,7 +25,7 @@ def play_round():
     my_deck = deck.create_deck()
     #use inbuilt shuffle module in random to shuffle my deck (randomize card dealt)
     random.shuffle(my_deck)
-    #test code below: print out shuffled deck of cards
+    #test case 1 below: print out shuffled deck of cards
     #print(my_deck)
 
     #create the player's empty hand
@@ -42,8 +42,8 @@ def play_round():
             rank, suit = card
             #print out what card the player got
             print("You drew:", rank, "of", suit)
-            #show cards for 2 seconds
-            time.sleep(2)
+            #show each card for 2 and a half seconds
+            time.sleep(2.5)
             #dealer must take back cards after they're dealt
             #memorization aspect, cards must disappear(looked up how to clear terminal screen via StackOverflow)
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -54,7 +54,7 @@ def play_round():
     
     #dealer randomly selects suits or ranks for player to guess
     suits_or_ranks = random.choice(["Suits", "Ranks"])
-    #test code below: tells the player which value they must try to recite
+    #test case 2 below: tells the player which value they must try to recite
     #print("You need to guess the", suits_or_ranks)
 
     #player must list out suits or ranks depending on the dealer's random choice
@@ -99,3 +99,18 @@ def play_round():
     #show player's score for the round
     print(f"Your score for this round is: {score}.")
     return score
+
+total_score = 0
+#loop my rounds function 5 times
+for round_number in range(1, 6):
+    #show player what round they are in
+    print(f"Round {round_number} of 5!")
+    #call my play_round function and have it remember the player's score for it
+    round_score = play_round()
+    #add the player's score from their current round to the score obtained from every round before to keep adding onto the total score
+    total_score += round_score
+    #6 second delay between rounds for player to see score and what they got right or wrong
+    time.sleep(6)
+
+#send the player off!!
+print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and please come back to play again later to try and beat it.")
