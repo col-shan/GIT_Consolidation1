@@ -15,13 +15,19 @@ def deal_card(my_deck, hand):
     #used append to add the card to the players hand
     hand.append(card)
 
+#clear terminal screen so player knows game is beginning and focuses (looked up how to clear terminal screen via StackOverflow)
+os.system('cls' if os.name == 'nt' else 'clear')
 #talk to the player and let them know what's going on!!
 print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2.5 seconds each.")
 print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
 print("One point will be awarded for every correct answer you get, and there will be 5 rounds. Let's begin!")
+#give player 10 seconds to read my instructions the cards are dealt (and screen is wiped)
+time.sleep(10)
+
 
 #put everything else into one big function to create my rounds
 def play_round():
+    #create variable to recalled my imported deck with
     my_deck = deck.create_deck()
     #use inbuilt shuffle module in random to shuffle my deck (randomize card dealt)
     random.shuffle(my_deck)
@@ -45,7 +51,7 @@ def play_round():
             #show each card for 2 and a half seconds
             time.sleep(2.5)
             #dealer must take back cards after they're dealt
-            #memorization aspect, cards must disappear(looked up how to clear terminal screen via StackOverflow)
+            #memorization aspect, cards must disappear (looked up how to clear terminal screen via StackOverflow)
             os.system('cls' if os.name == 'nt' else 'clear')
 
     #continue guiding player through the game
@@ -100,6 +106,13 @@ def play_round():
     print(f"Your score for this round is: {score}.")
     return score
 
+#create function that will open my high_score file and write in player's score
+def update_high_score(score):
+    #open my file and allow to append it
+    with open("high_score.txt", "a") as file:
+        #write in player's score
+        file.write(str(score) + "\n")
+
 total_score = 0
 #loop my rounds function 5 times
 for round_number in range(1, 6):
@@ -112,5 +125,9 @@ for round_number in range(1, 6):
     #6 second delay between rounds for player to see score and what they got right or wrong
     time.sleep(6)
 
+#clear terminal screen so player can easily discern their score (looked up how to clear terminal screen via StackOverflow)
+os.system('cls' if os.name == 'nt' else 'clear')
+#put player's score into high score leaderboard
+update_high_score(total_score)
 #send the player off!!
-print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and please come back to play again later to try and beat it.")
+print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and come back to play again later to set the high score.")

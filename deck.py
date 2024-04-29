@@ -9,4 +9,4 @@ def create_deck():
     deck = [(rank, suit) for suit in suits for rank in ranks]
     return deck
 
-#will now impport this module containing my deck of cards into my main code
+#will now import this module containing my deck of cards into my main code
