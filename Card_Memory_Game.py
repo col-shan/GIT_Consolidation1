@@ -15,12 +15,26 @@ def deal_card(my_deck, hand):
     #used append to add the card to the players hand
     hand.append(card)
 
+#create function that will read in the existing scores players' have gotten
+def display_high_score():
+    #open my file in read mode
+    with open("high_score.txt", "r") as file:
+        #read all lines from my file
+        high_scores = file.readlines()
+        #get the highest score from my file
+        highest_score = max(high_scores)
+        #return the highest existing score so far! will then print it with rest of my printed directions
+        return highest_score
+
 #clear terminal screen so player knows game is beginning and focuses (looked up how to clear terminal screen via StackOverflow)
 os.system('cls' if os.name == 'nt' else 'clear')
 #talk to the player and let them know what's going on!!
 print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2.5 seconds each.")
 print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
-print("One point will be awarded for every correct answer you get, and there will be 5 rounds. Let's begin!")
+print("One point will be awarded for every correct answer you get, and there will be 5 rounds.")
+#print existing high score
+highest_score = display_high_score()
+print(f"The highest score achieved so far is: {highest_score}. Lets begin!")
 #give player 10 seconds to read my instructions the cards are dealt (and screen is wiped)
 time.sleep(10)
 
@@ -79,9 +93,9 @@ def play_round():
         #use try/except block to match up dealt cards with guesses and account for if the player doesn't provide 4 guesses
         try:
             guess = player_guesses[i]
-        #if not enough guesses were made, let the player know and score accordingly
+        #if not enough guesses were made, let the player know and score accordingly (online help to use IndexError as a specific exception)
         except IndexError:
-            print("You failed to provide a guess for this card :(")
+            print("You didn't make a guess for this card :(")
             continue
         #if dealer chose suits
         if suits_or_ranks == "Suits":
@@ -114,6 +128,9 @@ def update_high_score(score):
         file.write(str(score) + "\n")
 
 total_score = 0
+
+display_high_score()
+
 #loop my rounds function 5 times
 for round_number in range(1, 6):
     #show player what round they are in
@@ -127,7 +144,5 @@ for round_number in range(1, 6):
 
 #clear terminal screen so player can easily discern their score (looked up how to clear terminal screen via StackOverflow)
 os.system('cls' if os.name == 'nt' else 'clear')
-#put player's score into high score leaderboard
-update_high_score(total_score)
 #send the player off!!
 print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and come back to play again later to set the high score.")
