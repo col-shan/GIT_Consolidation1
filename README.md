@@ -8,11 +8,15 @@ A potential player needs Python (and the accompanying os, random, and time modul
 
 ## Contributors
 
-I received no help on my code from anyone, but Professor Jackson was used as a resource to bounce ideas off of. Stack Overflow was frequently referred to for helping me better understand the nuances of features I was trying to implement. ChatGPT was used as well for syntax issues I had with my code.
+Lita O'Brien aided me when I was attempting to randomize how the dealer dealt from my deck of cards, and Chris Castillo helped me to create the display_high_score function that reads out the highest existing input from my high_score text file. Stack Overflow was frequently referred to for helping me better understand the nuances of features I was trying to implement. ChatGPT was used as well for syntax issues I had with my code.
 
 ## License
 
 I am using the MIT License to protect my intellectual property on this coding game.
 
 
-Next up: I want to create 2 different modes now: an easy mode set up just like the game already is, and a hard mode where users will lose a point for every wrong guess and they only have 1.5 seconds to see each card as its dealt
+used a “switch”-type while: loop to loop until a condition happens
+used a list where a list is appropriate 2 1
+7.2 used indexing (by index or key) with a list, tuple, or dictionary 2 1
+7.3 used a dictionary for an appropriate data structure 1 -
+7.4 used a tuple where mutability is not desired
