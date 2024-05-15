@@ -6,10 +6,8 @@ import random
 import time
 #import the deck of cards I created
 import deck
-#import the graphing software I need
+#import the graphing software I need fuck its broken
 import math
-import matplotlib
-import matplotlib.pyplot as plt
 
 #simulate what a dealer does by moving one card from my deck to the players hand
 #create my arguments for both my deck of cards, and hand of the player
