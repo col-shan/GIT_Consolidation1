@@ -6,6 +6,10 @@ import random
 import time
 #import the deck of cards I created
 import deck
+#import the graphing software I need
+import math
+import matplotlib
+import matplotlib.pyplot as plt
 
 #simulate what a dealer does by moving one card from my deck to the players hand
 #create my arguments for both my deck of cards, and hand of the player
@@ -21,6 +25,8 @@ def display_high_score():
     with open("high_score.txt", "r") as file:
         #read all lines from my file
         high_scores = file.readlines()
+        #convert every line from my file to an integer
+        high_scores = [int(score.strip()) for score in high_scores]
         #get the highest score from my file
         highest_score = max(high_scores)
         #return the highest existing score so far! will then print it with rest of my printed directions
@@ -70,7 +76,7 @@ def play_round():
 
     #continue guiding player through the game
     print("Time to test your recall! The dealer will now pick either the suits or ranks of the cards that were dealt.")
-    print("You must list out the corresponding values, using commas to separate your answers. It should look like this: 8, 10, king, 2")
+    print("You must list out the corresponding values, using commas to separate your answers. It should look like this: ?, ?, ?, ?")
     
     #dealer randomly selects suits or ranks for player to guess
     suits_or_ranks = random.choice(["Suits", "Ranks"])
@@ -120,16 +126,14 @@ def play_round():
     print(f"Your score for this round is: {score}.")
     return score
 
+total_score = 0
+
 #create function that will open my high_score file and write in player's score
-def update_high_score(score):
+def update_score(score):
     #open my file and allow to append it
     with open("high_score.txt", "a") as file:
         #write in player's score
         file.write(str(score) + "\n")
-
-total_score = 0
-
-display_high_score()
 
 #loop my rounds function 5 times
 for round_number in range(1, 6):
@@ -144,5 +148,7 @@ for round_number in range(1, 6):
 
 #clear terminal screen so player can easily discern their score (looked up how to clear terminal screen via StackOverflow)
 os.system('cls' if os.name == 'nt' else 'clear')
-#send the player off!!
-print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and come back to play again later to set the high score.")
+#put player's score into high score leaderboard
+update_score(total_score)
+#send the player off with the score they achieved!
+print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and come back to play again later!!")
