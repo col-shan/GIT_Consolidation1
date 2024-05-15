@@ -150,3 +150,25 @@ os.system('cls' if os.name == 'nt' else 'clear')
 update_score(total_score)
 #send the player off with the score they achieved!
 print(f"Your total score for all 5 rounds is: {total_score}! Congratulations, and come back to play again later!!")
+
+#time to plot all of the previous scores and the recent user score
+def plot_high_scores():
+    #open my file in read mode
+    with open("high_score.txt", "r") as file:
+        #read all lines from my file
+        high_scores = file.readlines()
+        #convert every line from my file to an integer
+        high_scores = [int(score.strip()) for score in high_scores]
+    #used online resources to add more detail to my plot than was gone over in lecture
+    #plug-in previously created plt to use matplotlib and create my plot graph
+    plt.plot(high_scores)
+    #give my plot a title
+    plt.title('High Scores Over Time')
+    #give my plot label for x-axis
+    plt.xlabel('Attempt Number')
+    #give my plot label for x-axis
+    plt.ylabel('Score')
+    #create my plot graph
+    plt.show()
+#display my plot graph!
+plot_high_scores()
