@@ -13,10 +13,3 @@ Lita O'Brien aided me when I was attempting to randomize how the dealer dealt fr
 ## License
 
 I am using the MIT License to protect my intellectual property on this coding game.
-
-
-used a “switch”-type while: loop to loop until a condition happens
-used a list where a list is appropriate 2 1
-7.2 used indexing (by index or key) with a list, tuple, or dictionary 2 1
-7.3 used a dictionary for an appropriate data structure 1 -
-7.4 used a tuple where mutability is not desired
