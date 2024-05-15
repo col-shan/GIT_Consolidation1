@@ -6,8 +6,8 @@ import random
 import time
 #import the deck of cards I created
 import deck
-#import the graphing software I need fuck its broken
-import matplotlib
+#import the graphing software I need and abbreviate it to just plt
+import matplotlib.pyplot as plt
 
 #simulate what a dealer does by moving one card from my deck to the players hand
 #create my arguments for both my deck of cards, and hand of the player
@@ -30,17 +30,12 @@ def display_high_score():
         #return the highest existing score so far! will then print it with rest of my printed directions
         return highest_score
 
-#clear terminal screen so player knows game is beginning and focuses (looked up how to clear terminal screen via StackOverflow)
-os.system('cls' if os.name == 'nt' else 'clear')
-#talk to the player and let them know what's going on!!
-print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2.5 seconds each.")
-print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
-print("One point will be awarded for every correct answer you get, and there will be 5 rounds.")
-#print existing high score
-highest_score = display_high_score()
-print(f"The highest score achieved so far is: {highest_score}. Lets begin!")
-#give player 10 seconds to read my instructions the cards are dealt (and screen is wiped)
-time.sleep(10)
+#create function that will open my high_score file and write in player's score
+def update_score(score):
+    #open my file and allow to append it
+    with open("high_score.txt", "a") as file:
+        #write in player's score
+        file.write(str(score) + "\n")
 
 
 #put everything else into one big function to create my rounds
@@ -54,7 +49,7 @@ def play_round():
 
     #create the player's empty hand
     player_hand = []
-    #create the player's score
+    #initialize the player's score
     score = 0
 
     #deal 4 cards to the player's hand
@@ -124,15 +119,20 @@ def play_round():
     print(f"Your score for this round is: {score}.")
     return score
 
+#clear terminal screen so player knows game is beginning and focuses (looked up how to clear terminal screen via StackOverflow)
+os.system('cls' if os.name == 'nt' else 'clear')
+#talk to the player and let them know what's going on!!
+print("Welcome to Colin's Card Memorization Game! You are about to be shown 4 cards, one at a time for 2.5 seconds each.")
+print("Your goal is to memorize the suits and ranks of each card in the order of which they were dealt.")
+print("One point will be awarded for every correct answer you get, and there will be 5 rounds.")
+#print existing high score
+highest_score = display_high_score()
+print(f"The highest score achieved so far is: {highest_score}. Lets begin!")
+#give player 10 seconds to read my instructions the cards are dealt (and screen is wiped)
+time.sleep(10)
+
+#initizialize the player's end score
 total_score = 0
-
-#create function that will open my high_score file and write in player's score
-def update_score(score):
-    #open my file and allow to append it
-    with open("high_score.txt", "a") as file:
-        #write in player's score
-        file.write(str(score) + "\n")
-
 #loop my rounds function 5 times
 for round_number in range(1, 6):
     #show player what round they are in
