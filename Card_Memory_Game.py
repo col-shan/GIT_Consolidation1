@@ -23,36 +23,54 @@ def deal_card(my_deck, hand):
 def display_high_score():
     """
     The purpose of this function is to read in all of the values found in my high_score text file and then find the highest value/
-    score among them and print it out so that the player will know the high score for them to beat.
+    score among them and print it out so that the player will know the high score for them to beat. If the high_score.txt file doesn't
+    exist, the try/except block will recognize that exception end the game immediately.
     """
-    #open my file in read mode
-    with open("high_score.txt", "r") as file:
-        #read all lines from my file
-        high_scores = file.readlines()
-        #convert every line from my file to an integer
-        high_scores = [int(score.strip()) for score in high_scores]
-        #get the highest score from my file
-        highest_score = max(high_scores)
-        #return the highest existing score so far! will then print it with rest of my printed directions
-        return highest_score
+    #check if an exception might be raised to make sure high_score.txt can be found
+    try:
+        #open my file in read mode
+        with open("high_score.txt", "r") as file:
+            #read all lines from my file
+            high_scores = file.readlines()
+            #convert every line from my file to an integer
+            high_scores = [int(score.strip()) for score in high_scores]
+            #get the highest score from my file
+            highest_score = max(high_scores)
+            #return the highest existing score so far! will then print it with rest of my printed directions
+            return highest_score
+    #handle exception of high_score.txt not being found and let the user know
+    except FileNotFoundError:
+        print("No high score file found. The game is over, sorry!")
+        #quit the program if high_score.txt can't be found
+        exit()
 
 def update_score(score):
     """
     The purpose of this function is to write in whatever value/score the player ended up with from their current game into my high_score
-    text file so that every score ever received by a player is documented and can be accessed to create cool data plots.
+    text file so that every score ever received by a player is documented and can be accessed to create cool data plots. If the 
+    high_score.txt file doesn't exist, the try/except block will recognize that exception end the game immediately.
     """
-    #open my file and allow to append it
-    with open("high_score.txt", "a") as file:
-        #write in player's score
-        file.write(str(score) + "\n")
+    #check if an exception might be raised to make sure high_score.txt can be found
+    try:
+        #open my file and allow to append it
+        with open("high_score.txt", "a") as file:
+            #write in player's score
+            file.write(str(score) + "\n")
+    #handle exception of high_score.txt not being found and let the user know
+    except FileNotFoundError:
+        print("No high score file found. The game is over, sorry!")
+        #quit the program if high_score.txt can't be found
+        exit()
 
 
 def play_round():
     """
     The purpose of this function is to create the rounds of my game, which I will iterate over later in the code. It's responsible for 
     calling and shuffling my imported deck, dealing 4 cards to the player one at a time, having the dealer ranomly decide either suits
-    or ranks, and then having the player input their 4 guess and correctly scoring them depending on whether they were right or wrong.
-    All the while there are printed messages throughout to guide the player on what to next!
+    or ranks, and then having the player input their 4 guesses separately with a while-switch loop and correctly matching them using zip
+    in a for loop to iterate over the player's guesses and the cards simultaneously. If/else conditional statements are used to correctly
+    score the player's guesses depending on whether they were right or wrong. All the while there are printed messages throughout to 
+    guide the player in how to play and understand the game!
     """
     #create variable to recalled my imported deck with
     my_deck = deck.create_deck()
@@ -90,7 +108,7 @@ def play_round():
     #test case 2 below: tells the player which value they must try to recite
     #print("You need to guess the", suits_or_ranks)
 
-    #player must list out suits or ranks depending on the dealer's random choice
+    #conditional statement to list out suits or ranks depending on the dealer's random choice
     if suits_or_ranks == "Suits":
         #have player input their guesses for suit
         player_guess = input("The dealer has picked suits (hearts, diamonds, clubs, spades)! Type them in order, and hit return to begin.")
@@ -113,7 +131,7 @@ def play_round():
 
     #create a loop using zip (StackOverflow!) to iterate over both the player's guesses and the cards simultaneously 
     for guess, card in zip(player_guesses, player_hand):
-        #if dealer chose suits
+        #if dealer chose suits (condtional statement)
         if suits_or_ranks == "Suits":
             #use conditional statement to access the player's hand at index of 1 (which is suits)
             #check if guess matches the suit of current card, and print and score accordingly with if/else for either scenario
@@ -124,7 +142,7 @@ def play_round():
             #if player was wrong, don't give them a point and print to let them know what the correct suit would've been
             else:
                 print(f"Ah you got this one wrong, the right suit was {card[1]}!")
-        #if dealer chose ranks
+        #if dealer chose ranks (conditional statement)
         else:  
             #use conditional statement to access the player's hand at index of 0 (which is ranks)
             #convert all numbers in my ranks (2-10) into strings so that program can properly score it (needed lots of online help here)
@@ -181,22 +199,29 @@ def plot_all_scores():
     The purpose of this function is to take all of the previous scores accomplished by players (found in my high_score text file) 
     and convert them into a plot graph once the game is over.
     """
-    #open my file in read mode
-    with open("high_score.txt", "r") as file:
-        #read all lines from my file
-        all_scores = file.readlines()
-        #convert every line from my file to an integer
-        all_scores = [int(score.strip()) for score in all_scores]
-    #used online resources to add more detail to my plot than was gone over in lecture
-    #plug-in previously created plt to use matplotlib and create my plot graph
-    plt.plot(all_scores)
-    #give my plot a title
-    plt.title('High Scores Over Time')
-    #give my plot label for x-axis
-    plt.xlabel('Attempt Number')
-    #give my plot label for x-axis
-    plt.ylabel('Score')
-    #create my plot graph
-    plt.show()
+    #check if an exception might be raised to make sure high_score.txt can be found
+    try:
+        #open my file in read mode
+        with open("high_score.txt", "r") as file:
+            #read all lines from my file
+            all_scores = file.readlines()
+            #convert every line from my file to an integer
+            all_scores = [int(score.strip()) for score in all_scores]
+        #used online resources to add more detail to my plot than was gone over in lecture
+        #plug-in previously created plt to use matplotlib and create my plot graph
+        plt.plot(all_scores)
+        #give my plot a title
+        plt.title('High Scores Over Time')
+        #give my plot label for x-axis
+        plt.xlabel('Attempt Number')
+        #give my plot label for x-axis
+        plt.ylabel('Score')
+        #create my plot graph
+        plt.show()
+        #handle exception of high_score.txt not being found and let the user know
+    except FileNotFoundError:
+        print("No high score file found. The game is over, sorry!")
+        #quit the program if high_score.txt can't be found
+        exit()
 #display my plot graph!
 plot_all_scores()
