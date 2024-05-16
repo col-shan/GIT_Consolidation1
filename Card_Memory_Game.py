@@ -124,10 +124,14 @@ def play_round():
     while num_guesses < 4:
         #allow the user to input their guess
         player_guess = input("Enter your guess: ")
-        #add their current guess to the player_guesses list created above
-        player_guesses.append(player_guess)
-        #count the number of guesses made from the initialized 0, increasing by 1 each time
-        num_guesses += 1
+        #use a conditional to make sure the player made a guess and didn't accidentally hit return
+        if player_guess.strip():
+            #add their current guess to the player_guesses list created above
+            player_guesses.append(player_guess)
+            #count the number of guesses made from the initialized 0, increasing by 1 each time
+            num_guesses += 1
+        else:
+            print("Please type in a value / enter a guess.")
 
     #create a loop using zip (StackOverflow!) to iterate over both the player's guesses and the cards simultaneously 
     for guess, card in zip(player_guesses, player_hand):
